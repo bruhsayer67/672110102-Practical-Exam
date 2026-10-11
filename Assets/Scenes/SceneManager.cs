@@ -41,8 +41,15 @@ namespace Patawee_Hutamai
         public void OnBGMVolumeChanged(float value)
         {
             PersistentBGM.SetVolume(value);
-        }
+        }    
 
+        public void OnSFXVolumeChanged(float value)
+        {
+            // Save the SFX volume preference
+            PlayerPrefs.SetFloat("SFXVolume", value);
+            PlayerPrefs.Save();
+            Debug.Log("SFX Volume Saved: " + value);
+        }
         void OnEnable()
         {
             // Match the slider position to the saved volume whenever the options panel opens
@@ -50,12 +57,11 @@ namespace Patawee_Hutamai
             {
                 bgmSlider.value = PlayerPrefs.GetFloat("BGMVolume", 1f);
             }
-        }
 
-        public void OnVFXVolumeChanged(float value)
-        {
-            Debug.Log("VFX Volume set to: " + value);
-            // Connect to your AudioSource or AudioMixer here
+            if (sfxSlider != null)
+            {
+                sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
+            }
         }
 
         // --- Stage Select Functions ---
