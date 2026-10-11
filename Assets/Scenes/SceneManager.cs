@@ -40,8 +40,16 @@ namespace Patawee_Hutamai
 
         public void OnBGMVolumeChanged(float value)
         {
-            Debug.Log("BGM Volume set to: " + value);
-            // Connect to your AudioSource or AudioMixer here
+            PersistentBGM.SetVolume(value);
+        }
+
+        void OnEnable()
+        {
+            // Match the slider position to the saved volume whenever the options panel opens
+            if (bgmSlider != null)
+            {
+                bgmSlider.value = PlayerPrefs.GetFloat("BGMVolume", 1f);
+            }
         }
 
         public void OnVFXVolumeChanged(float value)
@@ -66,5 +74,8 @@ namespace Patawee_Hutamai
         {
             SceneManager.LoadScene(0);
         }
+
+
+    
     }
 }
