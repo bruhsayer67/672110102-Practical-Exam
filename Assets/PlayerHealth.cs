@@ -1,3 +1,4 @@
+using Patawee_Hutamai;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -87,8 +88,13 @@ namespace Patawee_Hutamai
 
         private void Die()
         {
-            Debug.Log("Player died! Loading lose scene.");
-            SceneManager.LoadScene(loseSceneName);
+            Debug.Log("Player died! Saving score and loading lose scene.");
+
+            // Save the final score so the LoseMenu can display it
+            PlayerPrefs.SetInt("FinalScore", GameManager.CurrentScore);
+            PlayerPrefs.Save();
+
+            SceneManager.LoadScene(5);
         }
     }
 }
