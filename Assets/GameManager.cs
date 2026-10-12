@@ -9,6 +9,7 @@ namespace Patawee_Hutamai
 
         [Header("UI References")]
         [SerializeField] private TextMeshProUGUI scoreText;
+        [SerializeField] private TextMeshProUGUI healthText; // New: Reference for health UI
 
         private int currentScore = 0;
 
@@ -44,5 +45,17 @@ namespace Patawee_Hutamai
                 scoreText.text = "Score: " + currentScore;
             }
         }
+
+        // New: Public method to update health text from the PlayerHealth script
+        public static void UpdateHealthUI(int currentHealth, int maxHealth)
+        {
+            if (Instance != null && Instance.healthText != null)
+            {
+                Instance.healthText.text = "Health: " + currentHealth + " / " + maxHealth;
+            }
+        }
+
+        // Public property to safely access the current score from other scripts
+        public static int CurrentScore => Instance != null ? Instance.currentScore : 0;
     }
 }
